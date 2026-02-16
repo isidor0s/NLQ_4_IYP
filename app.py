@@ -17,7 +17,7 @@ Usage:
 
 import streamlit as st
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 from langchain_mcp_adapters.client import MultiServerMCPClient
 import asyncio
 import json
@@ -403,9 +403,11 @@ def _wrap_tool_with_truncation(tool):
     return tool
 
 
-@st.cache_resource
 def initialize_agent(api_key: str, neo4j_uri: str, neo4j_username: str, neo4j_password: str, neo4j_database: str):
-    """Initialize the agent with MCP tools and system prompt."""
+    """Initialize the agent with MCP tools and system prompt.
+    
+    Note: Not cached to ensure API keys are session-isolated for security.
+    """
     schema = load_system_prompt_schema()
     if not schema:
         st.warning("Warning: system-prompt file not found. Agent may have limited schema knowledge.")
@@ -440,13 +442,14 @@ def initialize_agent(api_key: str, neo4j_uri: str, neo4j_username: str, neo4j_pa
     
     tools = [_wrap_tool_with_truncation(t) for t in tools]
     
+    # Initialize Gemini model
     gemini = ChatGoogleGenerativeAI(
         model="gemini-2.5-flash",
         api_key=api_key,
         temperature=0
     )
     
-    agent = create_react_agent(gemini, tools)
+    agent = create_agent(gemini, tools)
     return agent, system_prompt
 
 
@@ -641,8 +644,11 @@ def render_sidebar() -> str:
     with st.sidebar:
         st.header("⚙️ Configuration")
 
+        st.info("ℹ️ **Public Demo** - Provide your own Gemini API key.")
+        st.markdown("")
         # Gemini API key with Connect button
         st.markdown("### Gemini API")
+        st.markdown("[Get your API key from Google AI Studio →](https://aistudio.google.com/apikey)")
         
         # Show current connection status
         if st.session_state.agent:
@@ -670,7 +676,6 @@ def render_sidebar() -> str:
                     st.session_state.agent = None 
                     st.session_state.agent_key = None
                     st.session_state.neo4j_config_hash = None
-                    initialize_agent.clear()
                     st.rerun()
                 else:
                     st.warning("Please enter an API key")
@@ -682,7 +687,6 @@ def render_sidebar() -> str:
                 st.session_state.agent_key = None
                 st.session_state.system_prompt = None
                 st.session_state.neo4j_config_hash = None
-                initialize_agent.clear()
                 st.rerun()
 
         # Neo4j connection settings
@@ -719,7 +723,6 @@ def render_sidebar() -> str:
                     st.session_state.neo4j_database = pending_database
                     st.session_state.agent = None
                     st.session_state.neo4j_config_hash = None
-                    initialize_agent.clear()
                     st.rerun()
             with col2:
                 if st.button("Reset", use_container_width=True):
@@ -729,7 +732,6 @@ def render_sidebar() -> str:
                     st.session_state.neo4j_database = DEFAULT_NEO4J_DATABASE
                     st.session_state.agent = None
                     st.session_state.neo4j_config_hash = None
-                    initialize_agent.clear()
                     st.rerun()
         
         if st.button("Clear Chat History"):
@@ -758,7 +760,12 @@ def render_sidebar() -> str:
 
         st.markdown("---")
         st.markdown("### About")
-        st.markdown("Uses Google Gemini-2.5-flash API, MCP Neo4j server tools.")
+        st.markdown("""
+        
+This app uses:
+- Google Gemini 2.5 Flash via LangChain
+- MCP Neo4j server tools
+- IYP public Neo4j database""")
 
     return st.session_state.user_api_key
 
@@ -1044,7 +1051,6 @@ def main():
     )
     if config_changed:
         st.session_state.agent = None
-        initialize_agent.clear()
     
     if st.session_state.agent is None:
         with st.spinner("Initializing agent..."):
