@@ -4,22 +4,11 @@
 
  An agent-based natural language interface for querying the [Internet Yellow Pages (IYP)](https://iyp.iijlab.net/) knowledge graph, developed as part of a **bachelor thesis**
 
-Users can ask questions about global Internet infrastructure in plain English and receive answers backed by real-time data from the IYP Neo4j database.
+Users can ask questions about global Internet infrastructure in plain English and receive answers with data from the IYP Neo4j database.
 
 ## What is IYP?
 
-The [Internet Yellow Pages](https://iyp.iijlab.net/) is a Neo4j knowledge graph that aggregates comprehensive Internet topology data from multiple authoritative sources:
-
-| Entity | Examples |
-|--------|----------|
-| **Autonomous Systems (ASes)** | Network operators, peering relationships, AS hegemony |
-| **Internet Exchange Points (IXPs)** | Where networks interconnect, membership |
-| **IP Prefixes** | Address space allocations, originations, RPKI status |
-| **Organizations** | Companies, registries, operators |
-| **Rankings** | CAIDA ASRank, Cisco Umbrella, IHR country rankings |
-| **Facilities** | Data centers and colocation sites |
-| **DNS** | Domain names, authoritative name servers, host names |
-| **RIPE Atlas** | Measurement probes and measurements |
+The [Internet Yellow Pages (IYP)](https://iyp.iijlab.net/) is a Neo4j graph database composed of over 60 Internet measurement datasets, designed to facilitate the exploration and analysis of Internet topology data. For more details, see the paper [*"The Wisdom of the Measurement Crowd"*](https://www.iijlab.net/en/members/romain/pdf/romain_imc2024.pdf) and [IYP Tutorial](https://tutorial.iyp.ihr.live/content/start/what-is-iyp.html).
 
 ## Features
 
