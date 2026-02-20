@@ -17,7 +17,7 @@ Usage:
 
 import streamlit as st
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 from langchain_mcp_adapters.client import MultiServerMCPClient
 import asyncio
 import json
@@ -449,7 +449,7 @@ def initialize_agent(api_key: str, neo4j_uri: str, neo4j_username: str, neo4j_pa
         temperature=0
     )
     
-    agent = create_react_agent(gemini, tools)
+    agent = create_agent(gemini, tools)
     return agent, system_prompt
 
 
