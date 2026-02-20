@@ -420,6 +420,7 @@ def initialize_agent(api_key: str, neo4j_uri: str, neo4j_username: str, neo4j_pa
             "neo4j": {
                 "command": "uvx",
                 "args": [
+                    "--with", "fastmcp<3.0.0"
                     "mcp-neo4j-cypher@0.5.2",
                     "--transport", "stdio",
                     "--db-url", neo4j_uri,
@@ -1089,3 +1090,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
