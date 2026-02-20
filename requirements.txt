@@ -1,6 +1,7 @@
-langchain
-langchain-google-genai==2.0.4
-langgraph==0.2.27
-langchain-mcp-adapters==0.1.13
+langchain==1.2.7
+langchain-google-genai==4.2.0
+langgraph==1.0.7
+langchain-mcp-adapters==0.1.11
 streamlit==1.51.0
+
 
