@@ -108,7 +108,7 @@ For Streamlit Cloud deployment, add `GOOGLE_GENAI_API_KEY` to your app secrets. 
 |-------|------------|
 | **Frontend** | [Streamlit](https://streamlit.io/) |
 | **LLM** | [Google Gemini 2.5 Flash](https://ai.google.dev/) |
-| **Agent Framework** | [LangGraph](https://github.com/langchain-ai/langgraph) (ReAct agent) |
+| **Agent Framework** | [LangChain Agents (create_agent)](https://python.langchain.com/docs/modules/agents/) |
 | **LLM Integration** | [LangChain Google GenAI](https://python.langchain.com/docs/integrations/chat/google_generative_ai/) |
 | **Database Access** | [MCP Neo4j Cypher](https://github.com/neo4j-contrib/mcp-neo4j) via [Model Context Protocol](https://modelcontextprotocol.io/) |
 | **Data Source** | [Internet Yellow Pages (IYP)](https://iyp.iijlab.net/) |
