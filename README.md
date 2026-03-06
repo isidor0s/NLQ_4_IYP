@@ -68,7 +68,7 @@ The system prompt includes the full IYP graph schema (node types, relationship t
 
 ### Streamlit Cloud (No Setup)
 
-👉 **[Launch NLQ4IYP Assistant](https://iyp-assistant.streamlit.app)**
+👉 **[Launch NLQ4IYP Assistant](https://nlq4iyp.streamlit.app/)**
 
 Enter your [Google AI Studio API key](https://aistudio.google.com/apikey) in the sidebar to start querying.
 
@@ -127,6 +127,12 @@ For Streamlit Cloud deployment, add `GOOGLE_GENAI_API_KEY` to your app secrets. 
 - Query results are truncated to 50 items in the UI (full results available via JSON export)
 - Complex or broad queries may timeout on the public IYP database
 - The LLM may occasionally generate incorrect Cypher, always verify via the reasoning panel
+
+## Evaluation
+
+System performance is validated through a comprehensive benchmark framework.
+
+📊 **[Evaluation Repository](https://github.com/isidor0s/nlq4iyp_evaluation)** — For more details
 
 ## Related Links
 
